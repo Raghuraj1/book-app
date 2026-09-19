@@ -7,7 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.imageview.ShapeableImageView
 
-class BookAdapter(private val bookList: ArrayList<Book>) : RecyclerView.Adapter<BookAdapter.MyViewHolder>() {
+class BookAdapter(
+    private val bookList: ArrayList<Book>,
+    private val onItemClick: (Book) -> Unit
+) : RecyclerView.Adapter<BookAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -24,6 +27,9 @@ class BookAdapter(private val bookList: ArrayList<Book>) : RecyclerView.Adapter<
         holder.cover.setImageResource(currentItem.titleImage)
         holder.author.text = currentItem.author
         holder.title.text = currentItem.title
+        holder.itemView.setOnClickListener {
+            onItemClick(currentItem)
+        }
     }
 
     override fun getItemCount(): Int {
